@@ -32,7 +32,7 @@ class ThemesController extends AppController{
 		if (!$this->Theme->exists()){
 			throw new NotFoundException(__('Invalid Theme'));
 		}
-		if ($this->request->is('post', 'put')) {
+		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Theme->save($this->request->data)){
 				$this->Flash->success(__('Theme updated'));
 				return $this->redirect(array('action' => 'index'));
