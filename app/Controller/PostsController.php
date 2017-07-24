@@ -3,6 +3,7 @@ class PostsController extends AppController {
     public $helpers = array('Html', 'Form');
 
     public function index() {
+        $this->loadModel('Theme');
         $this->set('posts', $this->Post->find('all'));
         $this->set('userRole', $this->Auth->user('role')); 
     }

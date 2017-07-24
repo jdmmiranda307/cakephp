@@ -13,6 +13,7 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Theme</th>
         <th>Action</th>
         <th>Created</th>
     </tr>
@@ -30,6 +31,7 @@
 					);
 				?>
 	        </td>
+	        <td><?php echo $post['Theme']['theme_name']; ?></td>
 	        <td>
 	        	<?php
 	        		echo $this->Form->postLink(
