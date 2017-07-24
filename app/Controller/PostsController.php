@@ -17,7 +17,10 @@ class PostsController extends AppController {
         $this->set('userRole', $this->Auth->user('role')); 
     }
 
-   	public function view($id = null) {
+    public function view($id = null) {
+        $this->loadModel('User');
+        $this->loadModel('Comment');
+        $this->loadModel('Theme');
         if (!$id) {
             throw new NotFoundException(__('Invalid post'));
         }
@@ -26,8 +29,10 @@ class PostsController extends AppController {
         if (!$post) {
             throw new NotFoundException(__('Invalid post'));
         }
-        $this->loadModel('Theme');
+        $user = $post['Post']['user_id'];
         $this->set('post', $post);
+        $this->set('username', $this->User->find('all',  array('conditions' => array('id' => $user))));
+        $this->set('comments', $this->Comment->find('all',  array('conditions' => array('post_id' => $id))));
     }
 
     public function add() {

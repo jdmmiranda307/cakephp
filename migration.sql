@@ -26,3 +26,13 @@ CREATE TABLE themes (
 
 ALTER TABLE posts ADD COLUMN theme_id int,
 ADD FOREIGN KEY (theme_id) REFERENCES themes(id);
+
+CREATE TABLE comments (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    post_id INT UNSIGNED,
+    user_id INT UNSIGNED,
+    text VARCHAR(255),
+    created DATETIME DEFAULT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
