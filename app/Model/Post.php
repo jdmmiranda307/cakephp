@@ -1,5 +1,6 @@
 <?php
 class Post extends AppModel{
+  public $belongsTo = 'Theme';
 	public $validate = array(
        'title' => array(
            'rule' => 'notBlank'

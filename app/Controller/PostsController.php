@@ -20,6 +20,7 @@ class PostsController extends AppController {
     }
 
     public function add() {
+        $this->set('themes',$this->Post->Theme->find('list', array('fields' => array('theme_name'))));
         if ($this->request->is('post')) {
             $this->Post->create();
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
@@ -32,6 +33,7 @@ class PostsController extends AppController {
     }
 
     public function edit($id = null){
+        $this->set('themes',$this->Post->Theme->find('list', array('fields' => array('theme_name'))));
     	if(!$id){
     		throw new NotFoundException(__('Invalid Post'));
     	}
