@@ -39,7 +39,7 @@ class AppController extends Controller {
 				'action' => 'index'
 			),
 			'logoutRedirect' => array(
-				'controller' => 'Users',
+				'controller' => 'users',
 				'action' => 'login',
 				'home'
 			),
@@ -53,7 +53,7 @@ class AppController extends Controller {
 	);
 
 	public function beforeFilter() {
-		$this->Auth->allow('index', 'view');
+		$this->Auth->allow('index', 'view', 'login');
 	}
 
 	public function isAuthorized($user) {
