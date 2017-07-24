@@ -1,10 +1,19 @@
 <?php
+App::uses('AppController', 'Controller');
+
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form');
 
+    public $paginate = array(
+        'limit' => 25,
+        'order' => array(
+                'Post.created' => 'desc'
+        )
+    );
     public function index() {
         $this->loadModel('Theme');
-        $this->set('posts', $this->Post->find('all'));
+        $this->Post->recursive = 0;
+        $this->set('posts', $this->paginate());
         $this->set('userRole', $this->Auth->user('role')); 
     }
 
@@ -17,6 +26,7 @@ class PostsController extends AppController {
         if (!$post) {
             throw new NotFoundException(__('Invalid post'));
         }
+        $this->loadModel('Theme');
         $this->set('post', $post);
     }
 

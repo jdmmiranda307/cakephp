@@ -1,8 +1,14 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class ThemesController extends AppController{
+class ThemesController extends AppController {
 
+	public $paginate = array(
+		'limit' => 25,
+		'order' => array(
+				'Theme.theme_name' => 'asc'
+		)
+	);
 	public function index() {
 		$this->Theme->recursive = 0;
 		$this->set('themes', $this->paginate());
