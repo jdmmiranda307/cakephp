@@ -10,38 +10,19 @@ class CommentsController extends AppController {
                 'Comment.created' => 'asc'
         )
     );
-    public function index($post) {
-        $this->loadModel('Theme');
-        $this->Comment->find('all',  array('conditions' => , array('post_id' => $post)););
-        $this->set('comments');
-        $this->set('userRole', $this->Auth->user('role')); 
+
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->Comment->create();
+            $this->request->data['Comment']['user_id'] = $this->Auth->user('id');
+            $this->request->data['Comment']['post_id'] = $this->Post->find('id');
+            if ($this->Comment->save($this->request->data)) {
+                $this->Flash->success(__('Your Comment has been saved.'));
+                return $this->redirect(array('controller' => 'posts', 'action' => 'view'));
+            }
+            $this->Flash->error(__('Unable to add your comment.'));
+        }
     }
-
-   	// public function view($id = null) {
-    //     if (!$id) {
-    //         throw new NotFoundException(__('Invalid post'));
-    //     }
-
-    //     $post = $this->Post->findById($id);
-    //     if (!$post) {
-    //         throw new NotFoundException(__('Invalid post'));
-    //     }
-    //     $this->loadModel('Theme');
-    //     $this->set('post', $post);
-    // }
-
-    // public function add() {
-    //     $this->set('themes',$this->Post->Theme->find('list', array('fields' => array('theme_name'))));
-    //     if ($this->request->is('post')) {
-    //         $this->Post->create();
-    //         $this->request->data['Post']['user_id'] = $this->Auth->user('id');
-    //         if ($this->Post->save($this->request->data)) {
-    //             $this->Flash->success(__('Your post has been saved.'));
-    //             return $this->redirect(array('action' => 'index'));
-    //         }
-    //         $this->Flash->error(__('Unable to add your post.'));
-    //     }
-    // }
 
     // public function edit($id = null){
     //     $this->set('themes',$this->Post->Theme->find('list', array('fields' => array('theme_name'))));

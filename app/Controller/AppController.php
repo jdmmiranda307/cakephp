@@ -49,7 +49,8 @@ class AppController extends Controller {
 				)
 			),
 			'authorize' => array('Controller')
-		)
+		),
+		'DebugKit.Toolbar'
 	);
 
 	public function beforeFilter() {
